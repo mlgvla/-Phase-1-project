@@ -11,6 +11,8 @@ var hum = document.querySelector('.h');
 var wind = document.querySelector('.w')
 var pre = document.querySelector('.p')
 var lastUpdated = document.querySelector('#lastUpdated')
+let units = "imperial" //added
+let currentCity //added
 
 
 let apik = "25c3942c764f3df2f802e6ce042c5d57"
@@ -30,7 +32,7 @@ locationBtn.addEventListener("click", () =>{
 
 function onSuccess(position){
     const {latitude, longitude} = position.coords;
-    api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apik}`;
+    api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${units}&appid=${apik}`;
     fetchData(api);
 }
 
@@ -40,7 +42,7 @@ function onSuccess(position){
 // // I collect all the information by the help of fetch method
 
 btn.addEventListener('click', function(){
-api = 'https://api.openweathermap.org/data/2.5/weather?q=' + inputvalue.value+'&units=metric&appid='+apik
+api = 'https://api.openweathermap.org/data/2.5/weather?q=' + inputvalue.value +`&units=${units}&appid=${apik}`
 //This is the api key and api link from where all the information will be collected
 fetchData(api);
   
@@ -55,7 +57,7 @@ function fetchData(api){
   .then(data => {
 
 // Necessary information with the API link.
-
+console.log(data)
       var cityname = data['name']
       var descrip = data['weather']['0']['description']
       var tempature = data['main']['temp']
@@ -107,7 +109,7 @@ function fetchData(api){
   // Functions to run onload
   // ------------------------
   window.onload = function() {
-    api = 'https://api.openweathermap.org/data/2.5/weather?q=' + 'New york' +'&units=metric&appid='+apik
+    api = 'https://api.openweathermap.org/data/2.5/weather?q=' + 'New york' +`&units=${units}&appid=${apik}`
 //This is the api key and api link from where all the information will be collected
   fetchData(api);
   };
